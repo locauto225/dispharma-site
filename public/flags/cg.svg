@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <!-- Triangle vert (haut/gauche) -->
+  <polygon fill="#009543" points="0,0 180,0 0,120"/>
+  <!-- Triangle rouge (bas/droite) -->
+  <polygon fill="#DC241F" points="300,200 120,200 300,80"/>
+  <!-- Bande diagonale jaune -->
+  <polygon fill="#FCD116" points="0,120 120,200 300,80 180,0"/>
+</svg>

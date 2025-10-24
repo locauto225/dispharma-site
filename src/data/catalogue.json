@@ -1,0 +1,54 @@
+{
+    "gammes": [
+      {
+        "slug": "antalgiques",
+        "titre": "Antalgiques",
+        "resume": "Soulagement de la douleur et de la fièvre.",
+        "image": "/catalogue/gammes/antalgiques.webp"
+      },
+      {
+        "slug": "dispositifs-medicaux",
+        "titre": "Dispositifs médicaux",
+        "resume": "Matériel et consommables pour la pratique médicale.",
+        "image": "/catalogue/gammes/dispositifs-medicaux.webp"
+      }
+    ],
+    "produits": {
+      "antalgiques": [
+        {
+          "slug": "paracetamol-500",
+          "nom": "Paracétamol 500 mg",
+          "forme": "Comprimé pelliculé",
+          "conditionnement": "Boîte de 20 comprimés",
+          "temp": "15-25",
+          "image": "/catalogue/produits/paracetamol-500.webp"
+        },
+        {
+          "slug": "ibuprofene-200",
+          "nom": "Ibuprofène 200 mg",
+          "forme": "Comprimé",
+          "conditionnement": "Boîte de 30 comprimés",
+          "temp": "15-25",
+          "image": "/catalogue/produits/ibuprofene-200.webp"
+        }
+      ],
+      "dispositifs-medicaux": [
+        {
+          "slug": "gants-nitrile",
+          "nom": "Gants nitrile",
+          "forme": "Non poudrés",
+          "conditionnement": "Boîte de 100",
+          "temp": "15-25",
+          "image": "/catalogue/produits/gants-nitrile.webp"
+        },
+        {
+          "slug": "seringues-5ml",
+          "nom": "Seringues 5 mL",
+          "forme": "Stériles",
+          "conditionnement": "Sachet de 100",
+          "temp": "15-25",
+          "image": "/catalogue/produits/seringues-5ml.webp"
+        }
+      ]
+    }
+  }
