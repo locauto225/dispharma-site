@@ -24,9 +24,7 @@ export default function AProposPage() {
               À propos de Dispharma
             </h1>
             <p className="mt-3 text-neutral-600 max-w-prose dark:text-neutral-300">
-              Dispharma est un acteur clé de la distribution pharmaceutique en Côte d’Ivoire,
-              connectant laboratoires, distributeurs et grossistes à travers un réseau logistique
-              certifié et digitalisé.
+              Dispharma est un acteur clé de la distribution pharmaceutique en Côte d’Ivoire, connecté à un réseau de partenaires à travers l’Afrique. Grâce à une logistique moderne et certifiée, nous assurons la disponibilité et la traçabilité des produits de santé, tant sur le territoire ivoirien qu’à l’export.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/contact">
@@ -62,7 +60,7 @@ export default function AProposPage() {
           <AnimatedInView>
             <SectionHeader
               title="Notre histoire"
-              subtitle="Fondée pour rapprocher les acteurs du secteur pharmaceutique, Dispharma s’est imposée comme un maillon central de la chaîne du médicament. Sa mission : garantir la disponibilité et la qualité des produits de santé sur l’ensemble du territoire ivoirien."
+              subtitle="Fondée pour rapprocher les acteurs du secteur pharmaceutique ivoirien, Dispharma s’est imposée comme un maillon central de la chaîne du médicament en Côte d’Ivoire, tout en étendant progressivement son expertise à plusieurs pays africains."
             />
           </AnimatedInView>
 
@@ -88,7 +86,7 @@ export default function AProposPage() {
           <AnimatedInView>
             <SectionHeader
               title="Nos valeurs & vision"
-              subtitle="Dispharma repose sur trois piliers : la rigueur, la transparence et la proximité. Notre vision : devenir la référence ouest-africaine de la distribution pharmaceutique responsable et innovante."
+              subtitle="Dispharma repose sur trois piliers : la rigueur, la transparence et la proximité. Notre vision : devenir la référence ouest-africaine en matière de distribution pharmaceutique responsable et innovante."
             />
           </AnimatedInView>
 
@@ -117,7 +115,7 @@ export default function AProposPage() {
           <AnimatedInView>
             <SectionHeader
               title="Notre équipe & locaux"
-              subtitle="Dispharma réunit des professionnels expérimentés du secteur santé, répartis entre nos sièges administratifs et nos entrepôts régionaux. Une équipe soudée autour d’une même exigence : servir la santé publique."
+              subtitle="Dispharma regroupe des professionnels expérimentés du secteur santé, répartis entre notre siège administratif et nos entrepôts régionaux en Côte d’Ivoire. Une équipe unie autour d’une même exigence : servir la santé publique et accompagner la croissance du réseau africain."
             />
           </AnimatedInView>
 

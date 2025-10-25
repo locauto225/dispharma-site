@@ -1,5 +1,3 @@
-
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -14,55 +12,40 @@ export const metadata: Metadata = {
 export default function ExtranetPage() {
   return (
     <main className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
-      {/* HERO */}
-      <section className="border-b dark:border-neutral-800">
-        <div className="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-semibold leading-tight">Extranet Dispharma</h1>
-            <p className="mt-3 text-neutral-600 max-w-prose dark:text-neutral-300">
-              Espace sécurisé réservé aux partenaires. Accédez à l’extranet pour consulter vos données
-              opérationnelles (ventes, stocks, traçabilité) et échanger avec nos équipes.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              {/* Lien extranet (ouvre un nouvel onglet) */}
-              <a
-                href="https://dispharma.logimatiqueci.com/dispharma/connexionAdmin.php"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button className="bg-orange-600 hover:bg-orange-700">Accéder à l’extranet</Button>
-              </a>
-
-              {/* Bouton tableau de bord (placeholder désactivé) */}
-              <Button
-                variant="outline"
-                className="cursor-not-allowed opacity-60 dark:border-neutral-700"
-                aria-disabled
-                title="Bientôt disponible"
-              >
-                Tableau de bord (bientôt)
+      {/* HERO avec image */}
+      <section className="relative border-b dark:border-neutral-800">
+        <div className="absolute inset-0">
+          <img
+            src="/extranet/entrepot-login.webp"
+            alt="Accès extranet Dispharma"
+            className="object-cover w-full h-full"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-4 md:px-6 py-24 text-center text-white">
+          <h1 className="text-4xl md:text-5xl font-semibold drop-shadow-lg">Espace Extranet Dispharma</h1>
+          <p className="mt-3 text-neutral-200 max-w-2xl mx-auto">
+            Interface sécurisée pour nos partenaires — accès aux ventes, stocks et traçabilité.
+          </p>
+          <div className="mt-8 flex justify-center flex-wrap gap-4">
+            <a
+              href="https://dispharma.logimatiqueci.com/dispharma/connexionAdmin.php"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="bg-orange-600 hover:bg-orange-700 text-white">
+                Accéder à l’extranet
               </Button>
-            </div>
-
-            <noscript>
-              <p className="mt-4 text-sm text-neutral-500">
-                JavaScript est désactivé. Utilisez ce lien direct : {" "}
-                <a
-                  href="https://dispharma.logimatiqueci.com/dispharma/connexionAdmin.php"
-                  className="underline text-orange-700"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Ouvrir l’extranet
-                </a>
-              </p>
-            </noscript>
-          </div>
-
-          <div className="md:justify-self-end">
-            {/* Visuel simple pour équilibrer la mise en page (optionnel) */}
-            <div className="hidden md:block rounded-2xl border bg-neutral-50 h-72 w-full dark:bg-neutral-900 dark:border-neutral-800" aria-hidden />
+            </a>
+            <Button
+              variant="outline"
+              className="cursor-not-allowed opacity-70 text-white border-white/70"
+              aria-disabled
+              title="Bientôt disponible"
+            >
+              Tableau de bord (bientôt)
+            </Button>
           </div>
         </div>
       </section>

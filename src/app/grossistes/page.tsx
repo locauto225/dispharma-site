@@ -36,7 +36,7 @@ export default function GrossistesPage() {
             <p className="mt-4 text-neutral-600 dark:text-neutral-300 max-w-prose">
               Dispharma accompagne les <strong>professionnels de la distribution pharmaceutique</strong> sur toute la chaîne&nbsp;:
               de la <strong>disponibilité produit</strong> à la <strong>livraison contrôlée</strong> en Côte d’Ivoire
-              et à l’<strong>export</strong> vers l’Afrique de l’Ouest.
+              et à l’<strong>export</strong> vers l’Afrique.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">

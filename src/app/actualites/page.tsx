@@ -76,7 +76,9 @@ export default function ActualitesPage() {
           <AnimatedInView>
             <h1 className="text-3xl md:text-4xl font-semibold leading-tight">Actualités & communiqués</h1>
             <p className="mt-3 text-neutral-600 max-w-prose">
-              Suivez les annonces, mises à jour produits et événements clés de Dispharma. Pour toute demande presse :
+              Suivez les actualités liées à la disponibilité des produits de santé, à la logistique pharmaceutique et aux initiatives favorisant un meilleur accès aux médicaments en Afrique. 
+              Dispharma s’engage, à son échelle, pour une chaîne d’approvisionnement fiable et responsable. 
+              Pour toute question ou collaboration, contactez‑nous à
               <a href="mailto:contact@dispharma-ci.com" className="underline underline-offset-2 ml-1">contact@dispharma-ci.com</a>.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
