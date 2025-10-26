@@ -80,7 +80,7 @@ function Icon({
   name: "lab" | "truck" | "thermo" | "doc" | "chart" | "shield";
   className?: string;
 }) {
-  const common = { className, viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": true as const };
+  const common = { className, viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": true as const, focusable: "false" as const };
   switch (name) {
     case "lab":
       return (
@@ -129,7 +129,7 @@ export default function HomePage() {
   const opacity = useTransform(scrollYProgress, [0, 1], [0.32, 0.2]);
 
   return (
-    <main className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+    <main className="min-h-dvh bg-app text-app">
       <ScrollProgressBar />
 
       {/* HERO */}
@@ -141,31 +141,17 @@ export default function HomePage() {
               <span className="text-orange-600">maîtrisée de bout en bout</span>
             </h1>
 
-            <AnimatedInView delay={0.1}>
-              <p className="mt-4 text-base md:text-lg text-neutral-600 dark:text-neutral-300">
-                <strong>Dispharma</strong> relie <strong>laboratoires</strong> et <strong>grossistes/pharmacies</strong> avec une mise sur le marché
-                <em> clé en main</em> : enregistrement, stockage sous températures contrôlées (2–8°C / 15–25°C),
-                distribution dans toute l’Afrique et suivi des ventes en temps réel.
-                <span className="hidden md:inline"> Nous opérons. Vous développez la marque.</span>
-              </p>
-
-              <p className="mt-3 text-sm text-neutral-700 dark:text-neutral-200">
-                <strong>Laboratoires&nbsp;:</strong> accès rapide au marché ivoirien <em>et</em> déploiement en Afrique, pilotage opérationnel &amp; commercial, visibilité de la performance.
-                <br className="hidden md:block" />
-                <strong>Grossistes / Pharmacies&nbsp;:</strong> disponibilité produits, traçabilité de bout-en-bout, couverture Afrique et accompagnement dédié.
-              </p>
-            </AnimatedInView>
 
             <AnimatedInView delay={0.2}>
               <div className="mt-6 flex flex-wrap gap-3">
                 {/* CTA principal : ancre vers Solutions */}
                 <Link href="#solutions">
-                  <Button className="bg-orange-600 hover:bg-orange-700 transition-transform hover:scale-[1.02]">
+                  <Button className="bg-orange-600 hover:bg-orange-700 text-white transition-transform hover:scale-[1.02]">
                     Découvrir nos solutions
                   </Button>
                 </Link>
                 <Link href="/contact">
-                  <Button variant="outline" className="dark:border-neutral-700 dark:hover:bg-neutral-900">
+                  <Button variant="outline">
                     Parler à un conseiller
                   </Button>
                 </Link>
@@ -203,12 +189,12 @@ export default function HomePage() {
       {/* CONFORMITÉ — bloc discret sous le hero */}
       <section
         id="conformite"
-        className="border-t dark:border-neutral-800/60 bg-white/40 dark:bg-neutral-950/30 backdrop-blur-sm"
+        className="border-t border-b border-app bg-app backdrop-blur-sm"
       >
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-5">
           <div className="flex items-center justify-center gap-3 text-sm">
-            <span className="text-neutral-500 dark:text-neutral-400">Conformité&nbsp;:</span>
-            <span className="inline-flex items-center justify-center rounded-full border border-neutral-200/70 dark:border-neutral-700/60 bg-white/70 dark:bg-neutral-900/40 px-4 py-2">
+            <span className="text-app-muted">Conformité&nbsp;:</span>
+            <span className="inline-flex items-center justify-center rounded-full border border-app bg-white/70 dark:bg-neutral-900/40 px-4 py-2">
               <Image
                 src="/badges/airp.webp"
                 alt="Certification AIRP"
@@ -223,10 +209,11 @@ export default function HomePage() {
 
 
       {/* SOLUTIONS — listes de services (NON CLIQUABLES) avec fond bleu + icônes */}
-      <section id="solutions" className="border-t bg-neutral-50 dark:bg-neutral-950 dark:border-neutral-800 scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-4 md:px-6 py-14">
+      <section id="solutions" className="section-border bg-neutral-50 dark:bg-app scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-4 md:px-6 py-10">
           <AnimatedInView>
             <SectionHeader
+              accent
               title="Nos services par profil"
               subtitle="Découvrez concrètement ce que Dispharma fait pour vous."
             />
@@ -234,74 +221,76 @@ export default function HomePage() {
 
           <div className="mt-8 grid md:grid-cols-2 gap-6">
             {/* Laboratoires */}
-            <AnimatedInView className="rounded-2xl border border-blue-100 bg-gradient-to-b from-blue-50 to-blue-100/40 dark:from-blue-900/25 dark:to-blue-900/10 dark:border-blue-800 p-6 cursor-default shadow-none">
+            <AnimatedInView className="relative rounded-2xl border border-neutral-200 dark:border-app shadow-[0_1px_4px_rgba(0,0,0,0.04)] bg-[rgb(245,248,255)] dark:[background-color:rgb(18,28,45)!important] p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md leading-relaxed md:leading-loose text-[15px]">
+              <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-8 h-16 bg-gradient-to-b from-orange-50/20 to-transparent dark:hidden" />
               <div className="flex items-center gap-3">
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/70 dark:bg-blue-900/40 border border-blue-100 dark:border-blue-800 text-blue-700 dark:text-blue-200">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/70 dark:bg-blue-900/40 border border-blue-100 dark:border-blue-800 text-blue-600/90 dark:text-orange-400">
                   <Icon name="lab" className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Laboratoires</h3>
+                <h3 className="text-lg font-semibold text-app">Laboratoires</h3>
               </div>
-              <p className="mt-2 text-sm text-neutral-800 dark:text-neutral-200">
+              <p className="mt-2 text-sm text-app">
                 Implantation CI & export : conformité, opérations et pilotage commercial.
               </p>
-              <ul className="mt-4 space-y-2 text-sm text-neutral-800 dark:text-neutral-200">
+              <ul className="mt-4 space-y-2.5 text-sm text-app leading-relaxed md:leading-loose">
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-700 dark:text-blue-300"><Icon name="doc" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="doc" /></span>
                   <span>Import conforme & gestion DGI (documents, autorisations)</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-700 dark:text-blue-300"><Icon name="doc" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="doc" /></span>
                   <span>Conformité <strong>AIRP</strong> validée (dossier, procédures & suivi)</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-700 dark:text-blue-300"><Icon name="truck" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="truck" /></span>
                   <span>Mise sur le marché CI & distribution dans toute l’Afrique</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-700 dark:text-blue-300"><Icon name="thermo" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="thermo" /></span>
                   <span>Stockage 2–8°C / 15–25°C, traçabilité lots & DLU</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-700 dark:text-blue-300"><Icon name="chart" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="chart" /></span>
                   <span>Reporting ventes & performance, extranet partenaires</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-700 dark:text-blue-300"><Icon name="truck" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="truck" /></span>
                   <span>Export maîtrisé</span>
                 </li>
               </ul>
             </AnimatedInView>
 
             {/* Grossistes & Pharmacies — sans extranet */}
-            <AnimatedInView className="rounded-2xl border border-blue-100 bg-gradient-to-b from-blue-50 to-blue-100/40 dark:from-blue-900/25 dark:to-blue-900/10 dark:border-blue-800 p-6 cursor-default shadow-none">
+            <AnimatedInView className="relative rounded-2xl border border-neutral-200 dark:border-app shadow-[0_1px_4px_rgba(0,0,0,0.04)] bg-[rgb(245,248,255)] dark:[background-color:rgb(18,28,45)!important] p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md leading-relaxed md:leading-loose text-[15px]">
+              <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-8 h-16 bg-gradient-to-b from-orange-50/20 to-transparent dark:hidden" />
               <div className="flex items-center gap-3">
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/70 dark:bg-blue-900/40 border border-blue-100 dark:border-blue-800 text-blue-700 dark:text-blue-200">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/70 dark:bg-blue-900/40 border border-blue-100 dark:border-blue-800 text-blue-600/90 dark:text-orange-400">
                   <Icon name="truck" className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Grossistes & Pharmacies</h3>
+                <h3 className="text-lg font-semibold text-app">Grossistes & Pharmacies</h3>
               </div>
-              <p className="mt-2 text-sm text-neutral-800 dark:text-neutral-200">
+              <p className="mt-2 text-sm text-app">
                 Approvisionnement fiable en Côte d’Ivoire et dans toute l’Afrique.
               </p>
-              <ul className="mt-4 space-y-2 text-sm text-neutral-800 dark:text-neutral-200">
+              <ul className="mt-4 space-y-2.5 text-sm text-app leading-relaxed md:leading-loose">
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-700 dark:text-blue-300"><Icon name="truck" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="truck" /></span>
                   <span>Logistique réactive et sécurisée sur l’ensemble du territoire</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-700 dark:text-blue-300"><Icon name="doc" /></span>
-                  <span>Export : documents, certificats d’origine, Incoterms</span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="doc" /></span>
+                  <span>Export : documents & certificats d’origine fournis</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-700 dark:text-blue-300"><Icon name="thermo" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="thermo" /></span>
                   <span>Chaîne du froid garantie & traçabilité bout-en-bout</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-700 dark:text-blue-300"><Icon name="doc" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="doc" /></span>
                   <span>Suivi commandes par <strong>notifications SMS/Email</strong> & BL/Factures fournies</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-700 dark:text-blue-300"><Icon name="shield" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="shield" /></span>
                   <span>Interlocuteur commercial dédié</span>
                 </li>
               </ul>
@@ -311,11 +300,11 @@ export default function HomePage() {
           {/* CTA centralisé après les services */}
           <div className="mt-8 flex flex-col items-center gap-3">
             <Link href="#parcours">
-              <Button className="bg-orange-600 hover:bg-orange-700">
+              <Button className="bg-orange-600 hover:bg-orange-700 text-white">
                 Choisir mon profil
               </Button>
             </Link>
-            <p className="text-center text-sm text-neutral-600 dark:text-neutral-300">
+            <p className="text-center text-sm text-app">
               Besoin d’un aperçu global ?{" "}
               <Link href="/partenaires" className="underline underline-offset-4 hover:text-orange-700">Pourquoi devenir partenaire</Link>
             </p>
@@ -324,7 +313,7 @@ export default function HomePage() {
       </section>
 
       {/* IDENTIFICATION — clic par profil + entrepôt au centre */}
-      <section id="parcours" className="border-t dark:border-neutral-800 scroll-mt-24">
+      <section id="parcours" className="section-border scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-16">
           <AnimatedInView>
             <SectionHeader
@@ -340,7 +329,7 @@ export default function HomePage() {
               <Link
                 href="/laboratoires"
                 aria-label="Profil Laboratoires"
-                className="group block h-full rounded-2xl border p-6 hover:shadow-lg transition dark:border-neutral-800"
+                className="group block h-full rounded-2xl border border-app bg-card p-6 hover-card"
               >
                 <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-t from-orange-50/20 to-transparent z-[1] pointer-events-none" />
@@ -353,8 +342,8 @@ export default function HomePage() {
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                 </div>
-                <h3 className="mt-3 font-semibold group-hover:text-orange-700 transition-colors">Laboratoires</h3>
-                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">
+                <h3 className="mt-3 font-semibold text-app transition-colors group-hover:text-orange-700 dark:group-hover:text-orange-300">Laboratoires</h3>
+                <p className="mt-1 text-sm text-app">
                   Mise sur le marché CI, conformité & reporting (extranet partenaires).
                 </p>
               </Link>
@@ -368,7 +357,7 @@ export default function HomePage() {
 
               <div
                 aria-label="Entrepôt Dispharma — maillon central"
-                className="relative overflow-hidden rounded-2xl border bg-white dark:bg-neutral-900 dark:border-neutral-800 px-0 py-0 w-[230px] md:w-[260px] shadow-sm"
+                className="relative overflow-hidden rounded-2xl border bg-card border-app px-0 py-0 w-[230px] md:w-[260px] shadow-sm"
               >
                 <div className="relative h-36 md:h-40 w-full">
                   <Image
@@ -379,13 +368,13 @@ export default function HomePage() {
                     className="object-cover"
                     priority={false}
                   />
-                  <span className="absolute top-2 left-2 inline-flex items-center rounded-md bg-white/85 dark:bg-neutral-900/85 px-2 py-0.5 text-[11px] font-medium border dark:border-neutral-800">
+                  <span className="absolute top-2 left-2 inline-flex items-center rounded-md bg-neutral-50 dark:bg-neutral-900/85 px-2 py-0.5 text-[11px] font-medium border dark:border-neutral-800">
                     Maillon central
                   </span>
                 </div>
                 <div className="p-4 text-center">
                   <div className="text-sm font-semibold">Entrepôt Dispharma</div>
-                  <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">
+                  <p className="mt-1 text-xs text-neutral-600 dark:text-app-muted">
                     Réception • Contrôle • Traçabilité • Températures 2–8°C / 15–25°C
                   </p>
                 </div>
@@ -401,7 +390,7 @@ export default function HomePage() {
               <Link
                 href="/grossistes"
                 aria-label="Profil Grossistes / Pharmacies"
-                className="group block h-full rounded-2xl border p-6 hover:shadow-lg transition dark:border-neutral-800"
+                className="group block h-full rounded-2xl border border-app bg-card p-6 hover-card"
               >
                 <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-t from-orange-50/20 to-transparent z-[1] pointer-events-none" />
@@ -414,15 +403,15 @@ export default function HomePage() {
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                 </div>
-                <h3 className="mt-3 font-semibold group-hover:text-orange-700 transition-colors">Grossistes / Pharmacies</h3>
-                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">
+                <h3 className="mt-3 font-semibold text-app transition-colors group-hover:text-orange-700 dark:group-hover:text-orange-300">Grossistes / Pharmacies</h3>
+                <p className="mt-1 text-sm text-app">
                   Disponibilité & délais maîtrisés (notifications SMS/Email, documents fournis).
                 </p>
               </Link>
             </AnimatedInView>
           </div>
 
-          <p className="mt-6 text-center text-xs text-neutral-500 dark:text-neutral-400">
+          <p className="mt-6 text-center text-xs text-app">
             Flux : <span className="font-medium">Laboratoire</span> → <span className="font-medium">Entrepôt Dispharma</span> →{" "}
             <span className="font-medium">Grossiste / Pharmacie</span>
           </p>
@@ -430,7 +419,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA PARTENARIAT */}
-      <section className="border-t bg-orange-50/40 dark:bg-orange-500/10 dark:border-neutral-800">
+      <section className="section-border bg-app dark:bg-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-12">
           <CtaBanner
             title="Programme Partenaires"
@@ -442,10 +431,13 @@ export default function HomePage() {
       </section>
 
       {/* CHIFFRES CLES */}
-      <section id="chiffres" className="border-t bg-neutral-50 dark:bg-neutral-950 dark:border-neutral-800">
+      <section id="chiffres" className="section-border bg-neutral-50 dark:bg-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-14">
           <AnimatedInView>
-            <SectionHeader title="Nos atouts en chiffres" subtitle="Des indicateurs concrets qui témoignent de notre fiabilité." />
+            <SectionHeader
+              title="Nos atouts en chiffres"
+              subtitle="Des indicateurs concrets qui témoignent de notre fiabilité."
+            />
           </AnimatedInView>
 
           <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -455,12 +447,12 @@ export default function HomePage() {
               { value: 10000, suffix: "", label: "livraisons/an" },
               { value: 100, suffix: "%", label: "conformité DGI" },
             ].map((s) => (
-              <AnimatedInView key={s.label} className="rounded-2xl border bg-white dark:bg-neutral-900 dark:border-neutral-800 p-6 text-center">
+              <AnimatedInView key={s.label} className="rounded-2xl border bg-card border-app p-6 text-center">
                 <div className="text-3xl md:text-4xl font-bold text-orange-600">
                   <AnimatedNumber to={s.value} triggerOnView />
                   {s.suffix}
                 </div>
-                <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">{s.label}</div>
+                <div className="mt-1 text-sm text-app">{s.label}</div>
               </AnimatedInView>
             ))}
           </div>
@@ -468,7 +460,7 @@ export default function HomePage() {
       </section>
 
       {/* EXTRANET — réservé aux LABORATOIRES partenaires */}
-      <section id="extranet" className="border-t dark:border-neutral-800 scroll-mt-24">
+      <section id="extranet" className="section-border scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
           <AnimatedInView>
             <SectionHeader
@@ -477,15 +469,15 @@ export default function HomePage() {
             />
             <div className="mt-6 flex gap-3">
               <Link href="/extranet">
-                <Button className="bg-orange-600 hover:bg-orange-700">Demander un accès</Button>
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white">Demander un accès</Button>
               </Link>
               <Link href="/extranet">
-                <Button variant="outline" className="dark:border-neutral-700 dark:hover:bg-neutral-900">En savoir plus</Button>
+                <Button variant="outline">En savoir plus</Button>
               </Link>
             </div>
           </AnimatedInView>
 
-          <div className="md:justify-self-end relative rounded-2xl overflow-hidden border bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800">
+          <div className="md:justify-self-end relative rounded-2xl overflow-hidden border bg-card border-app">
             <Image
               src="/extranet/entrepot-login.webp"
               alt="Extranet Dispharma (laboratoires partenaires)"
@@ -500,16 +492,19 @@ export default function HomePage() {
       </section>
 
       {/* ACTUALITES */}
-      <section id="actus" className="border-t bg-neutral-50 dark:bg-neutral-950 dark:border-neutral-800">
+      <section id="actus" className="section-border bg-neutral-50 dark:bg-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-14">
           <AnimatedInView>
             <div className="flex items-end justify-between">
               <div>
-                <SectionHeader title="Actualités / Communiqués" subtitle="Restez informés de nos annonces clés." />
+                <SectionHeader
+                  title="Actualités / Communiqués"
+                  subtitle="Restez informés de nos annonces clés."
+                />
               </div>
               <Link href="/actualites">
-                <Button variant="ghost" className="text-orange-600 hover:text-orange-700 px-0">
-                  Voir tout →
+                <Button variant="ghost" className="group px-0 text-orange-600 dark:text-orange-300 hover:text-orange-700 dark:hover:text-orange-200">
+                  Voir tout <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
                 </Button>
               </Link>
             </div>
@@ -517,12 +512,19 @@ export default function HomePage() {
 
           <div className="mt-8 grid md:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
-              <AnimatedInView key={i} className="rounded-2xl border bg-white dark:bg-neutral-900 dark:border-neutral-800 p-4">
-                <div className="aspect-[16/9] w-full rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800" />
-                <h3 className="mt-3 font-semibold">Titre d’actualité {i}</h3>
-                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">
-                  Court résumé. Tu brancheras plus tard sur ton CMS ou tes fichiers markdown.
-                </p>
+              <AnimatedInView key={i}>
+                <Link
+                  href="/actualites"
+                  className="group block h-full rounded-2xl border border-app bg-card p-6 hover-card relative"
+                  aria-label={`Lire l’actualité ${i}`}
+                >
+                  <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-6 h-12 bg-gradient-to-b from-orange-50/10 to-transparent dark:hidden" />
+                  <div className="aspect-[16/9] w-full rounded-lg overflow-hidden bg-neutral-100 dark:bg-card" />
+                  <h3 className="mt-3 font-semibold text-app transition-colors group-hover:text-orange-700 dark:group-hover:text-orange-300">Titre d’actualité {i}</h3>
+                  <p className="mt-1 text-sm text-app line-clamp-3">
+                    Court résumé. Tu brancheras plus tard sur ton CMS ou tes fichiers markdown.
+                  </p>
+                </Link>
               </AnimatedInView>
             ))}
           </div>
@@ -530,19 +532,19 @@ export default function HomePage() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="border-t dark:border-neutral-800 scroll-mt-24">
+      <section id="contact" className="section-border scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 gap-8 items-center">
           <AnimatedInView>
             <h2 className="text-2xl md:text-3xl font-semibold">Contactez-nous</h2>
-            <p className="mt-2 text-neutral-600 dark:text-neutral-300 max-w-prose">
+            <p className="mt-2 text-app max-w-prose">
               Retrouvez-nous facilement à notre entrepôt central. Nos équipes sont disponibles pour vous accompagner.
             </p>
 
-            <div className="mt-6 space-y-2 text-sm text-neutral-700 dark:text-neutral-300">
+            <div className="mt-6 space-y-2 text-sm text-app">
               <div>
                 <strong>Adresse :</strong>{" "}
                 <a
-                  href="https://www.google.com/maps/dir/?api=1&destination=Dispharma%2C%20Abidjan%2C%20C%C3%B4te%20d%E2%80%99Ivoire"
+                  href="https://www.google.com/maps/dir/?api=1&destination=Dispharma%2C%20Abidjan%2C%20Côte%20d’Ivoire"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline underline-offset-2 hover:text-orange-700"
@@ -575,24 +577,24 @@ export default function HomePage() {
 
             <div className="mt-6 flex flex-wrap gap-3">
               <a
-                href="https://www.google.com/maps/dir/?api=1&destination=Dispharma%2C%20Abidjan%2C%20C%C3%B4te%20d%E2%80%99Ivoire"
+                href="https://www.google.com/maps/dir/?api=1&destination=Dispharma%2C%20Abidjan%2C%20Côte%20d’Ivoire"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button className="bg-orange-600 hover:bg-orange-700">Itinéraire</Button>
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white">Itinéraire</Button>
               </a>
               <a href="tel:+2250700000000">
-                <Button variant="outline" className="dark:border-neutral-700 dark:hover:bg-neutral-900">Appeler</Button>
+                <Button variant="outline">Appeler</Button>
               </a>
               <a href="mailto:contact@dispharma-ci.com">
-                <Button variant="outline" className="dark:border-neutral-700 dark:hover:bg-neutral-900">Email</Button>
+                <Button variant="outline">Email</Button>
               </a>
             </div>
           </AnimatedInView>
 
-          <div className="rounded-2xl overflow-hidden border bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800 group">
+          <div className="md:justify-self-end relative rounded-2xl overflow-hidden border bg-card border-app">
             <a
-              href="https://www.google.com/maps/dir/?api=1&destination=Dispharma%2C%20Abidjan%2C%20C%C3%B4te%20d%E2%80%99Ivoire"
+              href="https://www.google.com/maps/dir/?api=1&destination=Dispharma%2C%20Abidjan%2C%20Côte%20d’Ivoire"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Ouvrir l’itinéraire vers Dispharma sur Google Maps"

@@ -16,15 +16,15 @@ export const metadata: Metadata = {
 
 export default function LaboratoiresPage() {
   return (
-    <main className="min-h-dvh bg-white text-neutral-900 scroll-smooth dark:bg-neutral-950 dark:text-neutral-100">
+    <main className="min-h-dvh bg-app text-app scroll-smooth">
       {/* HERO */}
-      <section className="border-b dark:border-neutral-800">
+      <section className="border-b border-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-14 grid md:grid-cols-2 gap-10 items-center">
           <div>
             <h1 className="text-3xl md:text-4xl font-semibold leading-tight">
               Solutions Dispharma pour laboratoires
             </h1>
-            <p className="mt-4 text-neutral-600 dark:text-neutral-300 max-w-prose">
+            <p className="mt-4 text-app max-w-prose">
               Accélérez votre présence en Afrique avec une mise sur le marché <em>clé en main</em> :
               enregistrement, stockage sous températures contrôlées (2–8°C / 15–25°C),
               distribution dans toute l’Afrique et suivi des ventes.
@@ -38,10 +38,7 @@ export default function LaboratoiresPage() {
                 </Button>
               </Link>
               <Link href="#comment-ca-marche" prefetch aria-label="Voir comment ça fonctionne">
-                <Button
-                  variant="outline"
-                  className="h-11 border-neutral-300 text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
-                >
+                <Button variant="outline" className="h-11">
                   Voir comment ça fonctionne
                 </Button>
               </Link>
@@ -54,18 +51,18 @@ export default function LaboratoiresPage() {
             width={1280}
             height={900}
             sizes="(min-width: 1024px) 50vw, 100vw"
-            className="w-full h-72 md:h-96 object-cover rounded-2xl border dark:border-neutral-800 shadow-sm"
+            className="w-full h-72 md:h-96 object-cover rounded-2xl border border-app shadow-sm"
             priority
           />
         </div>
       </section>
 
       {/* CONFORMITÉ — bloc discret sous le hero */}
-      <section id="conformite" className="border-t border-b border-neutral-200 dark:border-neutral-800/40 bg-white/40 dark:bg-neutral-950/30 backdrop-blur-sm">
+      <section id="conformite" className="border-t border-b border-app bg-app backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-5">
           <div className="flex items-center justify-center gap-3 text-sm">
             <span className="text-neutral-500 dark:text-neutral-400">Conformité&nbsp;:</span>
-            <span className="inline-flex items-center justify-center rounded-full border border-neutral-200/70 dark:border-neutral-700/60 bg-white/70 dark:bg-neutral-900/40 px-4 py-2">
+            <span className="inline-flex items-center justify-center rounded-full border border-app bg-white/70 dark:bg-neutral-900/40 px-4 py-2">
               <Image
                 src="/badges/airp.webp"
                 alt="Certification AIRP"
@@ -79,43 +76,45 @@ export default function LaboratoiresPage() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="border-b bg-neutral-50/60 dark:bg-neutral-950 dark:border-neutral-800 scroll-mt-24 md:scroll-mt-32">
+      <section id="services" className="border-b bg-app border-app scroll-mt-24 md:scroll-mt-32">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-14">
           <AnimatedInView>
             <h2 className="text-2xl md:text-3xl font-semibold">Nos deux solutions complémentaires</h2>
-            <p className="mt-2 text-neutral-600 dark:text-neutral-300 max-w-prose">
-              Une solution unique pour <strong>distribuer localement</strong> vos produits
+            <p className="mt-2 text-app-muted max-w-prose">
+              Deux leviers complémentaires&nbsp;: <strong>distribuer en Afrique</strong> (via notre réseau de grossistes)
               et <strong>accéder au marché ivoirien</strong> sans complexité administrative.
             </p>
           </AnimatedInView>
 
           <div className="mt-6 grid md:grid-cols-2 gap-6">
             {/* Distribution nationale */}
-            <AnimatedInView className="rounded-2xl border bg-white p-6 dark:bg-neutral-900 dark:border-neutral-800">
+            <div className="relative rounded-2xl border border-neutral-200/70 dark:border-app bg-card p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-md leading-relaxed md:leading-loose text-[15px]">
+              <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-8 h-16 bg-gradient-to-b from-orange-50/20 to-transparent dark:hidden" />
               <div className="flex items-center gap-3">
                 <Image src="/icons/map-ci.svg" alt="" width={28} height={28} aria-hidden />
                 <div className="text-lg font-semibold">Distribution dans toute l’Afrique</div>
               </div>
-              <ul className="mt-3 space-y-2 text-sm text-neutral-700 dark:text-neutral-300 list-disc list-inside">
+              <ul className="mt-3 space-y-2.5 text-sm text-app leading-relaxed md:leading-loose list-disc list-inside">
                 <li>Couverture logistique CI & Afrique</li>
                 <li>Suivi des ventes, stocks et retours</li>
-                <li>Communication directe avec les grossistes</li>
+                <li>À votre écoute — accompagnement réactif</li>
               </ul>
-            </AnimatedInView>
+            </div>
 
             {/* Import & mise sur le marché */}
-            <AnimatedInView className="rounded-2xl border bg-white p-6 dark:bg-neutral-900 dark:border-neutral-800">
+            <div className="relative rounded-2xl border border-neutral-200/70 dark:border-app bg-card p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-md leading-relaxed md:leading-loose text-[15px]">
+              <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-8 h-16 bg-gradient-to-b from-orange-50/20 to-transparent dark:hidden" />
               <div className="flex items-center gap-3">
                 <Image src="/icons/globe.svg" alt="" width={28} height={28} aria-hidden />
                 <div className="text-lg font-semibold">Import & mise sur le marché</div>
               </div>
-              <ul className="mt-3 space-y-2 text-sm text-neutral-700 dark:text-neutral-300 list-disc list-inside">
+              <ul className="mt-3 space-y-2.5 text-sm text-app leading-relaxed md:leading-loose list-disc list-inside">
                 <li>Import conforme & gestion douanière</li>
                 <li>Stockage sous température dirigée</li>
                 <li>Traçabilité complète (lots, DLU, documentation)</li>
-                <li className="text-neutral-600 dark:text-neutral-400">Documentation & conformité intégrées au flux.</li>
+                <li className="text-app-muted">Documentation & conformité intégrées au flux.</li>
               </ul>
-            </AnimatedInView>
+            </div>
           </div>
 
           {/* Bouton unique pour les deux cartes */}
@@ -130,7 +129,7 @@ export default function LaboratoiresPage() {
       </section>
 
       {/* APPROCHE — image .webp à gauche, contenus à droite */}
-      <section id="approche" className="border-b dark:border-neutral-800 scroll-mt-24 md:scroll-mt-32">
+      <section id="approche" className="border-b border-app scroll-mt-24 md:scroll-mt-32">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-14">
           <AnimatedInView>
             <h2 className="text-2xl md:text-3xl font-semibold">Notre approche</h2>
@@ -138,8 +137,8 @@ export default function LaboratoiresPage() {
 
           <div className="mt-6 grid md:grid-cols-2 items-center gap-8">
             {/* Image à gauche (ratio stable) */}
-            <AnimatedInView className="order-1 md:order-none">
-              <div className="relative w-full h-56 md:h-[360px] rounded-2xl border overflow-hidden dark:border-neutral-800">
+            <div className="order-1 md:order-none">
+              <div className="relative w-full h-56 md:h-[360px] rounded-2xl border overflow-hidden border-app">
                 <Image
                   src={approachImg}
                   alt="Méthodologie Dispharma — qualité, traçabilité et accompagnement"
@@ -150,37 +149,37 @@ export default function LaboratoiresPage() {
                   priority={false}
                 />
               </div>
-            </AnimatedInView>
+            </div>
 
             {/* 3 axes clés à droite */}
             <div className="grid sm:grid-cols-3 md:grid-cols-1 gap-6">
-              <AnimatedInView className="rounded-2xl border bg-white p-5 text-center dark:bg-neutral-900 dark:border-neutral-800">
+              <div className="rounded-2xl border border-app bg-card p-5 text-center">
                 <div className="text-lg font-semibold">Confiance & conformité</div>
-                <div className="text-sm text-neutral-600 dark:text-neutral-300 mt-1">
+                <div className="text-sm text-app mt-1">
                   Référentiels qualité alignés.
                 </div>
-              </AnimatedInView>
+              </div>
 
-              <AnimatedInView className="rounded-2xl border bg-white p-5 text-center dark:bg-neutral-900 dark:border-neutral-800">
+              <div className="rounded-2xl border border-app bg-card p-5 text-center">
                 <div className="text-lg font-semibold">Traçabilité & transparence</div>
-                <div className="text-sm text-neutral-600 dark:text-neutral-300 mt-1">
+                <div className="text-sm text-app mt-1">
                   Données en temps réel via extranet partenaire.
                 </div>
-              </AnimatedInView>
+              </div>
 
-              <AnimatedInView className="rounded-2xl border bg-white p-5 text-center dark:bg-neutral-900 dark:border-neutral-800">
+              <div className="rounded-2xl border border-app bg-card p-5 text-center">
                 <div className="text-lg font-semibold">Accompagnement personnalisé</div>
-                <div className="text-sm text-neutral-600 dark:text-neutral-300 mt-1">
-                  Un interlocuteur unique dédié à vos opérations.
+                <div className="text-sm text-app mt-1">
+                  Équipe dédiée à vos opérations.
                 </div>
-              </AnimatedInView>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ÉTAPES SIMPLIFIÉES avec titres en orange */}
-      <section id="comment-ca-marche" className="border-b bg-neutral-50/60 dark:bg-neutral-950 dark:border-neutral-800 scroll-mt-24 md:scroll-mt-32">
+      <section id="comment-ca-marche" className="border-b bg-app border-app scroll-mt-24 md:scroll-mt-32">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-14">
           <AnimatedInView>
             <h2 className="text-2xl md:text-3xl font-semibold">Un processus simple et encadré</h2>
@@ -197,14 +196,14 @@ export default function LaboratoiresPage() {
                 d: "Tableaux de bord qualité et performance ventes partagés (extranet).",
               },
             ].map((s) => (
-              <AnimatedInView
+              <div
                 key={s.n}
-                className="rounded-2xl border bg-white p-5 dark:bg-neutral-900 dark:border-neutral-800"
+                className="rounded-2xl border border-app bg-card p-5"
               >
-                <div className="text-xs text-neutral-500 dark:text-neutral-400">Étape {s.n}</div>
-                <div className="mt-1 font-semibold text-orange-600 dark:text-orange-500">{s.t}</div>
-                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">{s.d}</p>
-              </AnimatedInView>
+                <div className="text-xs text-app-muted">Étape {s.n}</div>
+                <div className="mt-1 font-semibold text-blue-600/90 dark:text-orange-400">{s.t}</div>
+                <p className="mt-1 text-sm text-app">{s.d}</p>
+              </div>
             ))}
           </div>
         </div>

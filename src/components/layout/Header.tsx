@@ -28,7 +28,7 @@ const THEMES = {
       "relative bg-neutral-50/90 text-neutral-900 backdrop-blur supports-[backdrop-filter]:backdrop-blur-sm",
     scrolled:
       "relative bg-neutral-100 text-neutral-900 shadow-sm border-b border-neutral-300",
-    link: "text-[#0a285f] hover:text-orange-600",
+    link: "header-link",
     underline: "after:bg-gradient-to-r after:from-orange-500 after:to-orange-700",
     logoHalo:
       "drop-shadow(0 0 0.5px rgba(0,0,0,.2)) drop-shadow(0 1px 2px rgba(0,0,0,.05))",
@@ -41,7 +41,7 @@ const THEMES = {
       "relative bg-white/92 text-neutral-900 backdrop-blur supports-[backdrop-filter]:backdrop-blur-sm",
     scrolled:
       "relative bg-white text-neutral-900 shadow-md border border-neutral-200/80",
-    link: "text-[#0a285f] hover:text-orange-600",
+    link: "header-link",
     underline: "after:bg-gradient-to-r after:from-orange-500 after:to-orange-700",
     logoHalo:
       "drop-shadow(0 0 0.5px rgba(0,0,0,.25)) drop-shadow(0 2px 4px rgba(0,0,0,.06))",
@@ -53,7 +53,7 @@ const THEMES = {
     atTop:
       "relative bg-white/95 text-neutral-900 backdrop-blur supports-[backdrop-filter]:backdrop-blur-sm",
     scrolled: "relative bg-white text-neutral-900 shadow-sm",
-    link: "text-[#0a285f] hover:text-orange-600",
+    link: "header-link",
     underline: "after:bg-gradient-to-r after:from-orange-500 after:to-orange-700",
     logoHalo: "drop-shadow(0 0 0.5px rgba(0,0,0,.2))",
     accentBar:
@@ -65,7 +65,7 @@ const THEMES = {
       "relative bg-white/92 text-neutral-900 backdrop-blur supports-[backdrop-filter]:backdrop-blur-sm",
     scrolled:
       "relative bg-white text-neutral-900 shadow-md border border-neutral-200/80",
-    link: "text-[#0a285f] hover:text-orange-600",
+    link: "header-link",
     underline: "after:bg-gradient-to-r after:from-orange-500 after:to-orange-700",
     logoHalo:
       "drop-shadow(0 0 0.5px rgba(0,0,0,.25)) drop-shadow(0 2px 4px rgba(0,0,0,.06))",
@@ -77,10 +77,10 @@ const THEMES = {
   glassPremium: {
     // Lisible partout, ne perturbe pas les textes du body (fond semi-opaque + blur)
     atTop:
-      "relative text-neutral-900/95 bg-white/60 supports-[backdrop-filter]:bg-white/45 supports-[backdrop-filter]:backdrop-blur-md border-b border-white/40 shadow-[0_2px_12px_rgba(10,40,95,.06)]",
+      "relative text-neutral-900/95 bg-white/60 supports-[backdrop-filter]:bg-white/45 supports-[backdrop-filter]:backdrop-blur-md border-b border-white/40 shadow-[0_2px_12px_rgba(10,40,95,.06)] dark:text-white/95 dark:bg-[#0b1f3a]/70 supports-[backdrop-filter]:dark:bg-[#0b1f3a]/55 dark:border-b dark:border-white/10",
     scrolled:
-      "relative text-neutral-900 bg-white/78 supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:backdrop-blur-lg border-b border-white/50 shadow-[0_4px_18px_rgba(10,40,95,.08)]",
-    link: "text-[#0a285f] hover:text-orange-600",
+      "relative text-neutral-900 bg-white/78 supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:backdrop-blur-lg border-b border-white/50 shadow-[0_4px_18px_rgba(10,40,95,.08)] dark:text-white dark:bg-[#0b1f3a]/85 supports-[backdrop-filter]:dark:bg-[#0b1f3a]/70 dark:border-b dark:border-white/10",
+    link: "header-link",
     underline: "after:bg-gradient-to-r after:from-orange-500 after:to-orange-700",
     logoHalo:
       "drop-shadow(0 0 0.5px rgba(0,0,0,.25)) drop-shadow(0 2px 4px rgba(0,0,0,.06))",
@@ -124,13 +124,16 @@ const GlassStyles = () => (
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [ready, setReady] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const T = THEMES[THEME];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
+    // Ensure first client render matches SSR (atTop), then update
     onScroll();
+    setReady(true);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -148,7 +151,7 @@ export default function Header() {
     <header
       className={[
         "sticky top-0 z-50 transition-all duration-300 supports-[backdrop-filter]:backdrop-saturate-150",
-        scrolled ? T.scrolled : T.atTop,
+        (ready && scrolled) ? T.scrolled : T.atTop,
         "glass-fallback",
       ].join(" ")}
     >
@@ -208,7 +211,7 @@ export default function Header() {
                       "after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0",
                       underline,
                       "after:transition-all after:duration-300 hover:after:w-full focus:after:w-full",
-                      isActive ? "font-semibold text-[#08224f] after:w-full" : "",
+                      isActive ? "font-semibold after:w-full" : "",
                     ].join(" ")}
                     {...(isActive ? { "aria-current": "page" } : {})}
                     prefetch
@@ -226,7 +229,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
-              className="md:hidden inline-flex items-center justify-center rounded-md p-3 text-[#0a285f] hover:bg-neutral-100 active:bg-neutral-200 transition"
+              className="md:hidden inline-flex items-center justify-center rounded-md p-3 header-link hover:bg-neutral-100 dark:hover:bg-white/10 active:bg-neutral-200 dark:active:bg-white/15 transition"
               aria-label="Ouvrir le menu"
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
@@ -238,7 +241,7 @@ export default function Header() {
 
             {/* CTA DESKTOP */}
             <Link href="/extranet" prefetch className="hidden md:block">
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white shadow-sm hover:shadow transition-shadow hover:scale-[1.01] duration-150">
+              <Button className="header-cta shadow-sm hover:shadow transition-shadow hover:scale-[1.01] duration-150">
                 Accès Extranet
               </Button>
             </Link>

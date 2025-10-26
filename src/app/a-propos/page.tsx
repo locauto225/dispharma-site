@@ -15,31 +15,38 @@ export const metadata: Metadata = {
 
 export default function AProposPage() {
   return (
-    <main className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+    <main className="min-h-dvh bg-app text-app">
       {/* HERO */}
-      <section className="border-b dark:border-neutral-800">
+      <section className="border-b border-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
           <AnimatedInView>
             <h1 className="text-3xl md:text-4xl font-semibold leading-tight">
               À propos de Dispharma
             </h1>
-            <p className="mt-3 text-neutral-600 max-w-prose dark:text-neutral-300">
-              Dispharma est un acteur clé de la distribution pharmaceutique en Côte d’Ivoire, connecté à un réseau de partenaires à travers l’Afrique. Grâce à une logistique moderne et certifiée, nous assurons la disponibilité et la traçabilité des produits de santé, tant sur le territoire ivoirien qu’à l’export.
+            <p className="mt-3 text-app max-w-prose">
+              Dispharma est un acteur clé de la distribution pharmaceutique en Côte d’Ivoire,
+              connecté à un réseau de partenaires à travers l’Afrique. Grâce à une logistique
+              moderne et certifiée, nous assurons la disponibilité et la traçabilité des produits
+              de santé, tant sur le territoire ivoirien qu’à l’export.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/contact">
-                <Button className="bg-orange-600 hover:bg-orange-700">Nous contacter</Button>
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white">
+                  Nous contacter
+                </Button>
               </Link>
               <Link href="/partenaires">
-                <Button variant="outline" className="dark:border-neutral-700 dark:hover:bg-neutral-900">
+                <Button variant="outline" className="h-11">
                   Devenir partenaire
                 </Button>
               </Link>
             </div>
           </AnimatedInView>
 
-          {/* Hero image — même animation que /partenaires (constante, sans hook) */}
-          <AnimatedInView delay={0.12} className="md:justify-self-end relative rounded-2xl overflow-hidden border bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800">
+          <AnimatedInView
+            delay={0.12}
+            className="md:justify-self-end relative rounded-2xl overflow-hidden border bg-card border-app"
+          >
             <Image
               src="/a-propos/hero.webp"
               alt="Équipe Dispharma et réseau logistique"
@@ -55,7 +62,7 @@ export default function AProposPage() {
       </section>
 
       {/* HISTOIRE & MISSION */}
-      <section className="border-b dark:border-neutral-800">
+      <section className="border-b border-app bg-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 gap-10 items-start">
           <AnimatedInView>
             <SectionHeader
@@ -64,8 +71,7 @@ export default function AProposPage() {
             />
           </AnimatedInView>
 
-          {/* Image statique (sans animation au scroll) */}
-          <div className="rounded-2xl overflow-hidden border bg-white dark:bg-neutral-900 dark:border-neutral-800">
+          <div className="rounded-2xl overflow-hidden border bg-card border-app">
             <Image
               src="/a-propos/histoire.webp"
               alt="Histoire et mission Dispharma"
@@ -81,7 +87,7 @@ export default function AProposPage() {
       </section>
 
       {/* VALEURS & VISION */}
-      <section className="border-b bg-neutral-50/60 dark:bg-neutral-950 dark:border-neutral-800">
+      <section className="border-b border-app bg-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-16">
           <AnimatedInView>
             <SectionHeader
@@ -99,10 +105,10 @@ export default function AProposPage() {
               <AnimatedInView
                 key={v.t}
                 delay={0.06 * i}
-                className="rounded-2xl border bg-white p-5 dark:bg-neutral-900 dark:border-neutral-800"
+                className="rounded-2xl border border-app bg-card p-5"
               >
-                <div className="text-sm font-semibold">{v.t}</div>
-                <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">{v.d}</div>
+                <div className="text-sm font-semibold text-blue-600/90 dark:text-orange-400">{v.t}</div>
+                <div className="mt-1 text-sm text-app">{v.d}</div>
               </AnimatedInView>
             ))}
           </div>
@@ -110,7 +116,7 @@ export default function AProposPage() {
       </section>
 
       {/* ÉQUIPE & LOCAUX */}
-      <section className="border-b dark:border-neutral-800">
+      <section className="border-b border-app bg-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 gap-10 items-start">
           <AnimatedInView>
             <SectionHeader
@@ -119,8 +125,7 @@ export default function AProposPage() {
             />
           </AnimatedInView>
 
-          {/* Image statique (sans animation au scroll) */}
-          <div className="rounded-2xl overflow-hidden border bg-white dark:bg-neutral-900 dark:border-neutral-800">
+          <div className="rounded-2xl overflow-hidden border border-app bg-card">
             <Image
               src="/a-propos/equipe.webp"
               alt="Équipe et locaux Dispharma"
@@ -136,7 +141,7 @@ export default function AProposPage() {
       </section>
 
       {/* CHIFFRES CLÉS */}
-      <section className="border-b bg-neutral-50/60 dark:bg-neutral-950 dark:border-neutral-800">
+      <section className="border-b border-app bg-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-16">
           <AnimatedInView>
             <SectionHeader
@@ -158,7 +163,7 @@ export default function AProposPage() {
       </section>
 
       {/* PARTENAIRES INSTITUTIONNELS */}
-      <section className="border-b dark:border-neutral-800">
+      <section className="border-b border-app bg-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-16">
           <AnimatedInView>
             <SectionHeader
@@ -168,21 +173,23 @@ export default function AProposPage() {
           </AnimatedInView>
 
           <div className="mt-6 flex flex-wrap items-center gap-6">
-            {["/logos/ministere-sante.svg", "/logos/chambre-commerce.svg", "/logos/ordre-pharmaciens.svg"].map((logo) => (
-              <div
-                key={logo}
-                className="rounded-xl border bg-white px-4 py-3 dark:bg-neutral-900 dark:border-neutral-800"
-              >
-                <Image
-                  src={logo}
-                  alt="Partenaire institutionnel"
-                  width={100}
-                  height={40}
-                  loading="eager"
-                  decoding="sync"
-                />
-              </div>
-            ))}
+            {["/logos/ministere-sante.svg", "/logos/chambre-commerce.svg", "/logos/ordre-pharmaciens.svg"].map(
+              (logo) => (
+                <div
+                  key={logo}
+                  className="rounded-xl border border-app bg-card px-4 py-3"
+                >
+                  <Image
+                    src={logo}
+                    alt="Partenaire institutionnel"
+                    width={100}
+                    height={40}
+                    loading="eager"
+                    decoding="sync"
+                  />
+                </div>
+              )
+            )}
           </div>
         </div>
       </section>

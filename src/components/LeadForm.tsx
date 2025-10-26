@@ -1,19 +1,15 @@
-// src/components/LeadForm.tsx
 "use client";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 type Props = {
-  /** Pré-sélection éventuelle du motif (optionnel) */
   defaultMotif?: string;
-  /** Pré-sélection éventuelle du profil (optionnel) */
   defaultProfil?: "Laboratoire" | "Grossiste/Pharmacie" | "Autre";
 };
 
 const PROFILS = ["Laboratoire", "Grossiste/Pharmacie", "Autre"] as const;
 
-// Liste simple (non conditionnelle) => évite les erreurs de choix
 const MOTIFS = [
   "Découvrir nos solutions",
   "Devenir partenaire",
@@ -32,15 +28,11 @@ export default function LeadForm({ defaultMotif, defaultProfil }: Props) {
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [ok, setOk] = useState<null | "ok" | "ko">(null);
-
-  // Honeypot anti-bot
-  const [hp, setHp] = useState("");
+  const [hp, setHp] = useState(""); // honeypot anti-bot
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (hp) return; // bot
-
-    // validation minimale
+    if (hp) return;
     if (!profil || !motif || !nom || !email) {
       setOk("ko");
       return;
@@ -48,19 +40,8 @@ export default function LeadForm({ defaultMotif, defaultProfil }: Props) {
 
     setSubmitting(true);
     setOk(null);
-
     try {
-      // À brancher sur ton endpoint réel si souhaité
-      // const res = await fetch("/api/lead", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     profil, motif, nom, societe, email, tel, message,
-      //     source: typeof window !== "undefined" ? window.location.href : ""
-      //   }),
-      // });
-      // if (!res.ok) throw new Error();
-      await new Promise((r) => setTimeout(r, 500)); // simulation
+      await new Promise((r) => setTimeout(r, 500));
       setOk("ok");
       setProfil(defaultProfil ?? undefined);
       setMotif(defaultMotif ?? undefined);
@@ -78,7 +59,6 @@ export default function LeadForm({ defaultMotif, defaultProfil }: Props) {
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
-      {/* Honeypot */}
       <input
         type="text"
         value={hp}
@@ -99,7 +79,7 @@ export default function LeadForm({ defaultMotif, defaultProfil }: Props) {
           required
           value={profil ?? ""}
           onChange={(e) => setProfil(e.target.value as Props["defaultProfil"])}
-          className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-500 dark:bg-neutral-900 dark:border-neutral-800"
+          className="mt-1 w-full rounded-md border border-app bg-card text-app placeholder:text-app-muted px-3 py-2 text-sm outline-none transition-[border-color,box-shadow] duration-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 hover:border-orange-500/60 focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)]"
         >
           <option value="" disabled>
             Sélectionner votre profil
@@ -122,7 +102,7 @@ export default function LeadForm({ defaultMotif, defaultProfil }: Props) {
           required
           value={motif ?? ""}
           onChange={(e) => setMotif(e.target.value)}
-          className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-500 dark:bg-neutral-900 dark:border-neutral-800"
+          className="mt-1 w-full rounded-md border border-app bg-card text-app placeholder:text-app-muted px-3 py-2 text-sm outline-none transition-[border-color,box-shadow] duration-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 hover:border-orange-500/60 focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)]"
         >
           <option value="" disabled>
             Sélectionner un motif
@@ -146,7 +126,7 @@ export default function LeadForm({ defaultMotif, defaultProfil }: Props) {
             required
             value={nom}
             onChange={(e) => setNom(e.target.value)}
-            className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-500 dark:bg-neutral-900 dark:border-neutral-800"
+            className="mt-1 w-full rounded-md border border-app bg-card text-app placeholder:text-app-muted px-3 py-2 text-sm outline-none transition-[border-color,box-shadow] duration-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 hover:border-orange-500/60 focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)]"
           />
         </div>
         <div>
@@ -157,7 +137,7 @@ export default function LeadForm({ defaultMotif, defaultProfil }: Props) {
             id="societe"
             value={societe}
             onChange={(e) => setSociete(e.target.value)}
-            className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-500 dark:bg-neutral-900 dark:border-neutral-800"
+            className="mt-1 w-full rounded-md border border-app bg-card text-app placeholder:text-app-muted px-3 py-2 text-sm outline-none transition-[border-color,box-shadow] duration-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 hover:border-orange-500/60 focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)]"
           />
         </div>
       </div>
@@ -174,7 +154,7 @@ export default function LeadForm({ defaultMotif, defaultProfil }: Props) {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-500 dark:bg-neutral-900 dark:border-neutral-800"
+            className="mt-1 w-full rounded-md border border-app bg-card text-app placeholder:text-app-muted px-3 py-2 text-sm outline-none transition-[border-color,box-shadow] duration-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 hover:border-orange-500/60 focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)]"
           />
         </div>
         <div>
@@ -186,7 +166,7 @@ export default function LeadForm({ defaultMotif, defaultProfil }: Props) {
             inputMode="tel"
             value={tel}
             onChange={(e) => setTel(e.target.value)}
-            className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-500 dark:bg-neutral-900 dark:border-neutral-800"
+            className="mt-1 w-full rounded-md border border-app bg-card text-app placeholder:text-app-muted px-3 py-2 text-sm outline-none transition-[border-color,box-shadow] duration-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 hover:border-orange-500/60 focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)]"
           />
         </div>
       </div>
@@ -201,30 +181,32 @@ export default function LeadForm({ defaultMotif, defaultProfil }: Props) {
           rows={4}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-500 dark:bg-neutral-900 dark:border-neutral-800"
+          className="mt-1 w-full rounded-md border border-app bg-card text-app placeholder:text-app-muted px-3 py-2 text-sm outline-none transition-[border-color,box-shadow] duration-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 hover:border-orange-500/60 focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)]"
           placeholder="Décrivez brièvement votre besoin (facultatif)."
         />
       </div>
 
-      {/* Légal / info */}
-      <p className="text-xs text-neutral-500 dark:text-neutral-400">
+      <p className="text-xs text-app-muted">
         Données utilisées uniquement pour répondre à votre demande. Jamais partagées avec des tiers.
         Horaires : 8h–17h (lun–ven) — réponse sous 48h.
       </p>
 
-      {/* Feedback */}
       {ok === "ok" && (
-        <div className="text-sm text-green-700 mt-1">Merci ! Nous revenons vers vous sous 48h ouvrées.</div>
+        <div className="text-sm text-green-700 mt-1">
+          Merci ! Nous revenons vers vous sous 48h ouvrées.
+        </div>
       )}
       {ok === "ko" && (
-        <div className="text-sm text-red-700 mt-1">Veuillez vérifier les champs requis puis réessayer.</div>
+        <div className="text-sm text-red-700 mt-1">
+          Veuillez vérifier les champs requis puis réessayer.
+        </div>
       )}
 
       <div className="pt-2">
         <Button
           type="submit"
           disabled={submitting}
-          className="h-11 w-full bg-orange-600 hover:bg-orange-700 disabled:opacity-70"
+          className="h-11 w-full bg-orange-600 hover:bg-orange-700 text-white disabled:opacity-70"
         >
           {submitting ? "Envoi..." : "Envoyer le message"}
         </Button>

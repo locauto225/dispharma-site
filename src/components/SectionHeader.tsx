@@ -8,8 +8,6 @@ export type SectionHeaderProps = {
   title: React.ReactNode;
   /** Sous‑titre : texte ou JSX */
   subtitle?: React.ReactNode;
-  /** Sur‑titre (eyebrow / overline) au-dessus du titre */
-  eyebrow?: React.ReactNode;
   /** Centre le bloc */
   center?: boolean;
   /** Classes supplémentaires sur le wrapper */
@@ -19,7 +17,6 @@ export type SectionHeaderProps = {
   /** Classes additionnelles ciblées */
   titleClassName?: string;
   subtitleClassName?: string;
-  eyebrowClassName?: string;
   /** id du titre (utile pour cible d’ancre); si présent, le sous‑titre est relié via aria-describedby */
   id?: string;
   /** Affiche un liseré marque au-dessus du titre */
@@ -31,13 +28,11 @@ export type SectionHeaderProps = {
 export default function SectionHeader({
   title,
   subtitle,
-  eyebrow,
   center = false,
   className,
   as: As = "h2",
   titleClassName,
   subtitleClassName,
-  eyebrowClassName,
   id,
   accent = false,
   divider = false,
@@ -60,23 +55,11 @@ export default function SectionHeader({
           aria-hidden
           className={cx(
             "mb-2 inline-block h-[3px] w-12 rounded-full",
-            "bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600",
+            "bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600",
             center && "mx-auto"
           )}
         />
       )}
-
-      {eyebrow ? (
-        <div
-          className={cx(
-            "text-xs font-semibold uppercase tracking-wide text-orange-600 dark:text-orange-400 mb-1",
-            center && "justify-center",
-            eyebrowClassName
-          )}
-        >
-          {eyebrow}
-        </div>
-      ) : null}
 
       {React.createElement(
         As,
@@ -87,7 +70,7 @@ export default function SectionHeader({
       {subtitle ? (
         <p
           id={describedId}
-          className={cx("mt-2 text-neutral-600 dark:text-neutral-300", subtitleClassName)}
+          className={cx("mt-2 text-app", subtitleClassName)}
         >
           {subtitle}
         </p>
@@ -97,8 +80,7 @@ export default function SectionHeader({
         <div
           aria-hidden
           className={cx(
-            "mt-5 h-px w-full",
-            "bg-gradient-to-r from-transparent via-neutral-200 to-transparent dark:via-neutral-800",
+            "mt-5 h-px w-full bg-gradient-to-r from-transparent via-[color-mix(in_srgb,_var(--border)_45%,_transparent)] to-transparent dark:via-[color-mix(in_srgb,_var(--border)_55%,_#ffffff_20%)]",
             center && "mx-auto"
           )}
         />

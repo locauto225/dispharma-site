@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import SectionHeader from "@/components/SectionHeader";
@@ -41,11 +42,11 @@ export default async function GammePage({ params }: Params) {
   const items = data.produits[gammeData.slug] ?? [];
 
   return (
-    <main className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+    <main className="min-h-dvh bg-app text-app">
       {/* FIL D’ARIANE + TITRE */}
-      <section className="border-b dark:border-neutral-800">
+      <section className="border-b border-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-10">
-          <nav className="text-sm mb-2 text-neutral-500 dark:text-neutral-400">
+          <nav className="text-sm mb-2 text-app-muted">
             <Link href="/catalogue" className="hover:underline">Catalogue</Link>
             <span aria-hidden> / </span>
             <span>{gammeData.titre}</span>
@@ -55,7 +56,7 @@ export default async function GammePage({ params }: Params) {
       </section>
 
       {/* LISTE PRODUITS */}
-      <section className="border-b dark:border-neutral-800">
+      <section className="border-b border-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-12">
           {items.length === 0 ? (
             <p className="text-neutral-600 dark:text-neutral-300">
@@ -66,26 +67,28 @@ export default async function GammePage({ params }: Params) {
               {items.map((p) => (
                 <article
                   key={p.slug}
-                  className="group rounded-2xl overflow-hidden border bg-white dark:bg-neutral-900 dark:border-neutral-800 transition hover:shadow-md"
+                  className="group rounded-2xl overflow-hidden border border-app bg-card transition hover:shadow-md"
                 >
                   <Link
                     href={`/produits/${p.slug}`}
                     className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
                   >
                     <div className="relative w-full h-44">
-                      <img
+                      <Image
                         src={p.image}
                         alt={p.nom}
-                        className="object-cover w-full h-full bg-neutral-50 dark:bg-neutral-900"
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover w-full h-full bg-app"
                         loading="lazy"
                       />
                     </div>
                     <div className="p-5">
                       <h3 className="font-semibold">{p.nom}</h3>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-300 mt-1">
+                      <p className="text-sm text-app mt-1">
                         {p.forme} — {p.conditionnement}
                       </p>
-                      <div className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+                      <div className="mt-2 text-xs text-app-muted">
                         Température : {p.temp === "2-8" ? "2–8°C" : "15–25°C"}
                       </div>
                       <div className="mt-3">
@@ -103,7 +106,7 @@ export default async function GammePage({ params }: Params) {
           {/* CTA bas de page */}
           <div className="mt-10 flex justify-center">
             <Link href="/contact" aria-label="Parler à un conseiller Dispharma">
-              <Button className="h-11 bg-orange-600 hover:bg-orange-700">Parler à un conseiller</Button>
+              <Button className="h-11 bg-orange-600 hover:bg-orange-700 text-white">Parler à un conseiller</Button>
             </Link>
           </div>
         </div>

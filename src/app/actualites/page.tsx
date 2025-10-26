@@ -69,26 +69,45 @@ export default function ActualitesPage() {
   const list = posts.filter((p) => p.href !== featured.href);
 
   return (
-    <main className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+    <main className="min-h-dvh bg-app text-app">
       {/* HERO */}
-      <section className="border-b dark:border-neutral-800">
+      <section className="border-b border-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
           <AnimatedInView>
-            <h1 className="text-3xl md:text-4xl font-semibold leading-tight">Actualités & communiqués</h1>
-            <p className="mt-3 text-neutral-600 dark:text-neutral-300 max-w-prose">
-              Suivez les actualités liées à la disponibilité des produits de santé, à la logistique pharmaceutique et aux initiatives favorisant un meilleur accès aux médicaments en Afrique. 
-              Dispharma s’engage, à son échelle, pour une chaîne d’approvisionnement fiable et responsable. 
-              Pour toute question ou collaboration, contactez‑nous à
-              <a href="mailto:contact@dispharma-ci.com" className="underline underline-offset-2 ml-1">contact@dispharma-ci.com</a>.
+            <h1 className="text-3xl md:text-4xl font-semibold leading-tight">
+              Actualités & communiqués
+            </h1>
+            <p className="mt-3 text-app max-w-prose">
+              Suivez les actualités liées à la disponibilité des produits de santé, à la logistique pharmaceutique
+              et aux initiatives favorisant un meilleur accès aux médicaments en Afrique. Dispharma s’engage, à son échelle,
+              pour une chaîne d’approvisionnement fiable et responsable. Pour toute question ou collaboration,
+              contactez-nous à{" "}
+              <a
+                href="mailto:contact@dispharma-ci.com"
+                className="underline underline-offset-2 hover:text-orange-700"
+              >
+                contact@dispharma-ci.com
+              </a>.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/partenaires"><Button className="bg-orange-600 hover:bg-orange-700">Programme Partenaires</Button></Link>
-              <Link href="/contact"><Button variant="outline">Nous contacter</Button></Link>
+              <Link href="/partenaires">
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white">
+                  Programme Partenaires
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline">
+                  Nous contacter
+                </Button>
+              </Link>
             </div>
           </AnimatedInView>
 
           {/* À la une : actu du jour sinon la plus récente */}
-          <AnimatedInView delay={0.12} className="relative rounded-2xl overflow-hidden border bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800">
+          <AnimatedInView
+            delay={0.12}
+            className="relative rounded-2xl overflow-hidden border border-app bg-card"
+          >
             <Link
               href={featured.href}
               aria-label={`À la une : ${featured.category} — ${featured.title}`}
@@ -103,7 +122,7 @@ export default function ActualitesPage() {
                 className="w-full h-72 md:h-96 object-cover transition-transform duration-500 group-hover:scale-[1.02]"
               />
               {/* Badge catégorie */}
-              <div className="absolute left-3 top-3 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium text-neutral-700 border dark:bg-neutral-100 dark:text-neutral-900 dark:border-neutral-200">
+              <div className="absolute left-3 top-3 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium text-neutral-700 border">
                 À la une · {featured.category}
               </div>
               {/* Dégradé + titre */}
@@ -128,7 +147,11 @@ export default function ActualitesPage() {
 
           <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {list.map((post, i) => (
-              <AnimatedInView key={post.href} delay={0.06 * i} className="group rounded-2xl border bg-white overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-800">
+              <AnimatedInView
+                key={post.href}
+                delay={0.06 * i}
+                className="group rounded-2xl border border-app bg-card overflow-hidden hover:shadow-lg transition"
+              >
                 <Link href={post.href} aria-label={`${post.category} — ${post.title}`} className="block">
                   <div className="relative h-40">
                     <Image
@@ -136,16 +159,18 @@ export default function ActualitesPage() {
                       alt={post.title}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                      className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                     />
                     <div className="absolute left-3 top-3 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium text-neutral-700 border">
                       {post.category}
                     </div>
                   </div>
                   <div className="p-5">
-                    <div className="text-xs text-neutral-500 dark:text-neutral-400">{new Date(post.date).toLocaleDateString("fr-FR")}</div>
+                    <div className="text-xs text-app-muted">
+                      {new Date(post.date).toLocaleDateString("fr-FR")}
+                    </div>
                     <h3 className="mt-1 font-semibold line-clamp-2">{post.title}</h3>
-                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">{post.excerpt}</p>
+                    <p className="mt-1 text-sm text-app line-clamp-3">{post.excerpt}</p>
                     <div className="mt-4 inline-flex items-center gap-1 text-orange-600">
                       <span className="font-medium">Lire</span>
                       <span aria-hidden>→</span>
@@ -159,25 +184,45 @@ export default function ActualitesPage() {
       </section>
 
       {/* ARCHIVES / CATEGORIES (placeholder) */}
-      <section className="border-t bg-neutral-50/60 dark:bg-neutral-950 dark:border-neutral-800">
+      <section className="border-t border-app bg-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-12 grid md:grid-cols-3 gap-8">
-          <AnimatedInView className="rounded-2xl border bg-white p-6 dark:bg-neutral-900 dark:border-neutral-800">
+          <AnimatedInView className="rounded-2xl border border-app bg-card p-6">
             <div className="text-sm font-semibold">Catégories</div>
-            <ul className="mt-3 space-y-2 text-sm text-neutral-700 dark:text-neutral-300">
-              <li><Link className="hover:underline" href="#">Articles</Link></li>
-              <li><Link className="hover:underline" href="#">Communiqués</Link></li>
-              <li><Link className="hover:underline" href="#">Événements</Link></li>
+            <ul className="mt-3 space-y-2 text-sm text-app">
+              <li>
+                <Link className="hover:underline" href="#">
+                  Articles
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:underline" href="#">
+                  Communiqués
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:underline" href="#">
+                  Événements
+                </Link>
+              </li>
             </ul>
           </AnimatedInView>
 
-          <AnimatedInView className="rounded-2xl border bg-white p-6 md:col-span-2 dark:bg-neutral-900 dark:border-neutral-800">
+          <AnimatedInView className="rounded-2xl border border-app bg-card p-6 md:col-span-2">
             <div className="text-sm font-semibold">À propos de Dispharma</div>
-            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
-              Dispharma relie laboratoires, entrepôts et grossistes à travers une logistique certifiée et une traçabilité numérique. Contact presse :
-              <a href="mailto:contact@dispharma-ci.com" className="underline underline-offset-2 ml-1">contact@dispharma-ci.com</a>.
+            <p className="mt-2 text-sm text-app">
+              Dispharma relie laboratoires, entrepôts et grossistes à travers une logistique certifiée et une traçabilité numérique.
+              Contact presse :
+              <a
+                href="mailto:contact@dispharma-ci.com"
+                className="underline underline-offset-2 ml-1 hover:text-orange-700"
+              >
+                contact@dispharma-ci.com
+              </a>.
             </p>
             <div className="mt-4">
-              <Link href="/partenaires"><Button variant="outline">Programme Partenaires</Button></Link>
+              <Link href="/partenaires">
+                <Button variant="outline">Programme Partenaires</Button>
+              </Link>
             </div>
           </AnimatedInView>
         </div>

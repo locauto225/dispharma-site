@@ -9,9 +9,9 @@ export default function FeatureCard({
   description: string
 }) {
   return (
-    <AnimatedInView className="rounded-2xl border bg-white p-5">
-      <div className="text-sm font-semibold">{title}</div>
-      <div className="mt-1 text-sm text-neutral-600">{description}</div>
+    <AnimatedInView className="rounded-2xl border border-app bg-card p-5 dark:bg-[#0b1e36] dark:border-white/10">
+      <div className="text-sm font-semibold text-app">{title}</div>
+      <div className="mt-1 text-sm text-app/70">{description}</div>
     </AnimatedInView>
   )
 }

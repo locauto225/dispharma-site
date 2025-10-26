@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
@@ -11,20 +12,26 @@ export const metadata: Metadata = {
 
 export default function ExtranetPage() {
   return (
-    <main className="min-h-dvh bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
-      {/* HERO avec image */}
-      <section className="relative border-b dark:border-neutral-800">
+    <main className="min-h-dvh bg-white text-neutral-900 dark:bg-[#0a1833] dark:text-neutral-100">
+      {/* HERO avec image (optimisée Next/Image) */}
+      <section className="relative border-b dark:border-white/10">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="/extranet/entrepot-login.webp"
             alt="Accès extranet Dispharma"
-            className="object-cover w-full h-full"
-            loading="eager"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
           />
+          {/* voile pour lisibilité du texte */}
           <div className="absolute inset-0 bg-black/40" />
         </div>
+
         <div className="relative mx-auto max-w-7xl px-4 md:px-6 py-24 text-center text-white">
-          <h1 className="text-4xl md:text-5xl font-semibold drop-shadow-lg">Espace Extranet Dispharma</h1>
+          <h1 className="text-4xl md:text-5xl font-semibold drop-shadow-lg">
+            Espace Extranet Dispharma
+          </h1>
           <p className="mt-3 text-neutral-200 max-w-2xl mx-auto">
             Interface sécurisée pour nos partenaires — accès aux ventes, stocks et traçabilité.
           </p>
@@ -50,13 +57,13 @@ export default function ExtranetPage() {
         </div>
       </section>
 
-      {/* FAQ courte / aide (optionnel, discret) */}
+      {/* FAQ courte / aide (discrète) */}
       <section>
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-12">
-          <div className="rounded-2xl border bg-white p-6 dark:bg-neutral-900 dark:border-neutral-800">
+          <div className="rounded-2xl border bg-white p-6 dark:bg-neutral-900 dark:border-white/10">
             <h2 className="text-lg font-semibold">Assistance</h2>
             <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
-              Problème d’accès ? Contactez le support via {" "}
+              Problème d’accès ? Contactez le support via{" "}
               <Link href="/contact" className="underline text-orange-700">le formulaire</Link> ou votre interlocuteur Dispharma.
             </p>
           </div>

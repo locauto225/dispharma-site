@@ -35,6 +35,12 @@ export default {
           800: "#262626",
           900: "#171717",
         },
+
+        // Thème sombre bleu premium (fond / cartes / texte secondaire / bordures)
+        app: "#0b1f3a",            // fond des sections en dark (bg-app)
+        card: "#0f274a",           // fond des cartes en dark (bg-card)
+        "app-muted": "#a9b7d0",    // texte secondaire en dark (text-app-muted)
+        "border-app": "#13325c",   // bordures en dark (border-app)
       },
 
       fontFamily: {

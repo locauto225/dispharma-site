@@ -73,7 +73,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr" className="scroll-smooth">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-app text-app`}>
         {/* Lien d'évitement pour l'accessibilité (navigations clavier/lecteurs d'écran) */}
         <a
           href="#main"
