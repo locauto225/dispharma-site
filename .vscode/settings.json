@@ -1,0 +1,6 @@
+{
+  "tailwindCSS.validate": false,
+  "tailwindCSS.lint.recommendedVariantOrder": "ignore",
+  "tailwindCSS.lint.unknownClasses": "warning",
+  "tailwindCSS.experimental.configFile": "tailwind.config.ts"
+}

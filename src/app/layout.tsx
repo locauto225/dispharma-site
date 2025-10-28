@@ -76,11 +76,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-app text-app`}>
         {/* Lien d'évitement pour l'accessibilité (navigations clavier/lecteurs d'écran) */}
         <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:shadow"
-        >
-          Aller au contenu principal
-        </a>
+  href="#main"
+  className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-100 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:shadow"
+>
+  Aller au contenu principal
+</a>
         <Header />
         <main id="main">
           {children}

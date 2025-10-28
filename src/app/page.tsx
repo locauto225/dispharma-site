@@ -1,13 +1,25 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { Suspense, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useMotionValue, animate, useSpring, useReducedMotion } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  animate,
+  useSpring,
+  useReducedMotion,
+} from "framer-motion";
 import { Button } from "@/components/ui/button";
 import AnimatedInView from "@/components/AnimatedInView";
-import LottiePlayer from "@/components/LottiePlayer";
 import SectionHeader from "@/components/SectionHeader";
 import CtaBanner from "@/components/CtaBanner";
+
+// Charge Lottie uniquement côté client (évite du JS côté serveur)
+const LottiePlayer = dynamic(() => import("@/components/LottiePlayer"), { ssr: false });
 
 // Compteur
 function AnimatedNumber({
@@ -28,7 +40,7 @@ function AnimatedNumber({
 
   const start = () => {
     if (reduce) {
-      // Respecte prefers-reduced-motion : pas d'animation, valeur finale directe
+      // Respecte prefers-reduced-motion : pas d'animation
       mv.set(to);
       return;
     }
@@ -59,7 +71,7 @@ function ScrollProgressBar() {
 
   return (
     <motion.div
-      className="fixed left-0 right-0 top-0 h-[3px] z-[100] origin-left pointer-events-none"
+      className="fixed left-0 right-0 top-0 h-[3px] z-100 origin-left pointer-events-none"
       style={{
         scaleX,
         background:
@@ -80,7 +92,13 @@ function Icon({
   name: "lab" | "truck" | "thermo" | "doc" | "chart" | "shield";
   className?: string;
 }) {
-  const common = { className, viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": true as const, focusable: "false" as const };
+  const common = {
+    className,
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    "aria-hidden": true as const,
+    focusable: "false" as const,
+  };
   switch (name) {
     case "lab":
       return (
@@ -141,7 +159,6 @@ export default function HomePage() {
               <span className="text-orange-600">maîtrisée de bout en bout</span>
             </h1>
 
-
             <AnimatedInView delay={0.2}>
               <div className="mt-6 flex flex-wrap gap-3">
                 {/* CTA principal : ancre vers Solutions */}
@@ -150,21 +167,23 @@ export default function HomePage() {
                     Découvrir nos solutions
                   </Button>
                 </Link>
-                <Link href="/contact">
-                  <Button variant="outline">
-                    Parler à un conseiller
-                  </Button>
+                <Link href="/contact" prefetch={false}>
+                  <Button variant="outline">Parler à un conseiller</Button>
                 </Link>
               </div>
             </AnimatedInView>
           </div>
 
           <AnimatedInView delay={0.35}>
-            <div className="relative h-72 md:h-[22rem] flex items-center justify-center isolate overflow-visible">
-              <motion.div aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ y, scale, opacity }}>
+            <div className="relative h-72 md:h-88 flex items-center justify-center isolate overflow-visible">
+              <motion.div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -z-10"
+                style={{ y, scale, opacity }}
+              >
                 <div
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] h-[130%]"
-                  style={{ background: "radial-gradient(120% 120% at 50% 50%, rgba(255,126,0,0.32) 0%, rgba(255,126,0,0.18) 40%, transparent 70%)" }}
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] h-[130%]
+                             bg-[radial-gradient(120%_120%_at_50%_50%,rgba(255,126,0,0.32)_0%,rgba(255,126,0,0.18)_40%,transparent_70%)]"
                 />
               </motion.div>
 
@@ -183,14 +202,10 @@ export default function HomePage() {
             </div>
           </AnimatedInView>
         </div>
-
       </section>
 
       {/* CONFORMITÉ — bloc discret sous le hero */}
-      <section
-        id="conformite"
-        className="border-t border-b border-app bg-app backdrop-blur-sm"
-      >
+      <section id="conformite" className="border-t border-b border-app bg-app backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-5">
           <div className="flex items-center justify-center gap-3 text-sm">
             <span className="text-app-muted">Conformité&nbsp;:</span>
@@ -201,15 +216,16 @@ export default function HomePage() {
                 width={32}
                 height={32}
                 className="object-contain"
+                loading="lazy"
+                decoding="async"
               />
             </span>
           </div>
         </div>
       </section>
 
-
-      {/* SOLUTIONS — listes de services (NON CLIQUABLES) avec fond bleu + icônes */}
-      <section id="solutions" className="section-border bg-neutral-50 dark:bg-app scroll-mt-24">
+      {/* SOLUTIONS — listes de services (NON CLIQUABLES) */}
+      <section id="solutions" className="section-border bg-app scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-10">
           <AnimatedInView>
             <SectionHeader
@@ -221,8 +237,11 @@ export default function HomePage() {
 
           <div className="mt-8 grid md:grid-cols-2 gap-6">
             {/* Laboratoires */}
-            <AnimatedInView className="relative rounded-2xl border border-neutral-200 dark:border-app shadow-[0_1px_4px_rgba(0,0,0,0.04)] bg-[rgb(245,248,255)] dark:[background-color:rgb(18,28,45)!important] p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md leading-relaxed md:leading-loose text-[15px]">
-              <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-8 h-16 bg-gradient-to-b from-orange-50/20 to-transparent dark:hidden" />
+            <AnimatedInView className="relative rounded-2xl border border-neutral-200 dark:border-app shadow-[0_1px_4px_rgba(0,0,0,0.04)] bg-[rgb(245,248,255)] dark:!bg-[#121c2d] p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md leading-relaxed md:leading-loose text-[15px]">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 -top-8 h-16 bg-gradient-to-b from-orange-50/20 to-transparent dark:hidden"
+              />
               <div className="flex items-center gap-3">
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/70 dark:bg-blue-900/40 border border-blue-100 dark:border-blue-800 text-blue-600/90 dark:text-orange-400">
                   <Icon name="lab" className="w-5 h-5" />
@@ -234,86 +253,113 @@ export default function HomePage() {
               </p>
               <ul className="mt-4 space-y-2.5 text-sm text-app leading-relaxed md:leading-loose">
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="doc" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400" aria-hidden="true">
+                    <Icon name="doc" />
+                  </span>
                   <span>Import conforme & gestion DGI (documents, autorisations)</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="doc" /></span>
-                  <span>Conformité <strong>AIRP</strong> validée (dossier, procédures & suivi)</span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400" aria-hidden="true">
+                    <Icon name="doc" />
+                  </span>
+                  <span>
+                    Conformité <strong>AIRP</strong> validée (dossier, procédures & suivi)
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="truck" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400" aria-hidden="true">
+                    <Icon name="truck" />
+                  </span>
                   <span>Mise sur le marché CI & distribution dans toute l’Afrique</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="thermo" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400" aria-hidden="true">
+                    <Icon name="thermo" />
+                  </span>
                   <span>Stockage 2–8°C / 15–25°C, traçabilité lots & DLU</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="chart" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400" aria-hidden="true">
+                    <Icon name="chart" />
+                  </span>
                   <span>Reporting ventes & performance, extranet partenaires</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="truck" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400" aria-hidden="true">
+                    <Icon name="truck" />
+                  </span>
                   <span>Export maîtrisé</span>
                 </li>
               </ul>
             </AnimatedInView>
 
-            {/* Grossistes & Pharmacies — sans extranet */}
-            <AnimatedInView className="relative rounded-2xl border border-neutral-200 dark:border-app shadow-[0_1px_4px_rgba(0,0,0,0.04)] bg-[rgb(245,248,255)] dark:[background-color:rgb(18,28,45)!important] p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md leading-relaxed md:leading-loose text-[15px]">
-              <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-8 h-16 bg-gradient-to-b from-orange-50/20 to-transparent dark:hidden" />
+            {/* Grossistes & Pharmacies */}
+            <AnimatedInView className="relative rounded-2xl border border-neutral-200 dark:border-app shadow-[0_1px_4px_rgba(0,0,0,0.04)] bg-[rgb(245,248,255)] dark:!bg-[#121c2d] p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md leading-relaxed md:leading-loose text-[15px]">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 -top-8 h-16 bg-gradient-to-b from-orange-50/20 to-transparent dark:hidden"
+              />
               <div className="flex items-center gap-3">
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/70 dark:bg-blue-900/40 border border-blue-100 dark:border-blue-800 text-blue-600/90 dark:text-orange-400">
                   <Icon name="truck" className="w-5 h-5" />
                 </div>
                 <h3 className="text-lg font-semibold text-app">Grossistes & Pharmacies</h3>
               </div>
-              <p className="mt-2 text-sm text-app">
-                Approvisionnement fiable en Côte d’Ivoire et dans toute l’Afrique.
-              </p>
+              <p className="mt-2 text-sm text-app">Approvisionnement fiable en Côte d’Ivoire et dans toute l’Afrique.</p>
               <ul className="mt-4 space-y-2.5 text-sm text-app leading-relaxed md:leading-loose">
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="truck" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400" aria-hidden="true">
+                    <Icon name="truck" />
+                  </span>
                   <span>Logistique réactive et sécurisée sur l’ensemble du territoire</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="doc" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400" aria-hidden="true">
+                    <Icon name="doc" />
+                  </span>
                   <span>Export : documents & certificats d’origine fournis</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="thermo" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400" aria-hidden="true">
+                    <Icon name="thermo" />
+                  </span>
                   <span>Chaîne du froid garantie & traçabilité bout-en-bout</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="doc" /></span>
-                  <span>Suivi commandes par <strong>notifications SMS/Email</strong> & BL/Factures fournies</span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400" aria-hidden="true">
+                    <Icon name="doc" />
+                  </span>
+                  <span>
+                    Suivi commandes par <strong>notifications SMS/Email</strong> & BL/Factures fournies
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 text-blue-600/90 dark:text-orange-400"><Icon name="shield" /></span>
+                  <span className="mt-1 text-blue-600/90 dark:text-orange-400" aria-hidden="true">
+                    <Icon name="shield" />
+                  </span>
                   <span>Interlocuteur commercial dédié</span>
                 </li>
               </ul>
             </AnimatedInView>
           </div>
 
-          {/* CTA centralisé après les services */}
+          {/* CTA centralisé */}
           <div className="mt-8 flex flex-col items-center gap-3">
             <Link href="#parcours">
-              <Button className="bg-orange-600 hover:bg-orange-700 text-white">
-                Choisir mon profil
-              </Button>
+              <Button className="bg-orange-600 hover:bg-orange-700 text-white">Choisir mon profil</Button>
             </Link>
             <p className="text-center text-sm text-app">
               Besoin d’un aperçu global ?{" "}
-              <Link href="/partenaires" className="underline underline-offset-4 hover:text-orange-700">Pourquoi devenir partenaire</Link>
+              <Link href="/partenaires" prefetch={false} className="underline underline-offset-4 hover:text-orange-700">
+                Pourquoi devenir partenaire
+              </Link>
             </p>
           </div>
         </div>
       </section>
 
       {/* IDENTIFICATION — clic par profil + entrepôt au centre */}
-      <section id="parcours" className="section-border scroll-mt-24">
+      <section id="parcours" className="section-border bg-app scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-16">
           <AnimatedInView>
             <SectionHeader
@@ -322,7 +368,6 @@ export default function HomePage() {
             />
           </AnimatedInView>
 
-
           <div id="profils-grid" className="mt-10 grid gap-6 md:grid-cols-[1fr_auto_1fr] items-stretch">
             {/* LABORATOIRES */}
             <AnimatedInView>
@@ -330,9 +375,10 @@ export default function HomePage() {
                 href="/laboratoires"
                 aria-label="Profil Laboratoires"
                 className="group block h-full rounded-2xl border border-app bg-card p-6 hover-card"
+                prefetch={false}
               >
-                <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-orange-50/20 to-transparent z-[1] pointer-events-none" />
+                <div className="relative aspect-video w-full rounded-xl overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-t from-orange-50/20 to-transparent z-1 pointer-events-none" />
                   <Image
                     src="/roles/labo.webp"
                     alt="Laboratoires — production et contrôle qualité"
@@ -340,9 +386,13 @@ export default function HomePage() {
                     height={600}
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
-                <h3 className="mt-3 font-semibold text-app transition-colors group-hover:text-orange-700 dark:group-hover:text-orange-300">Laboratoires</h3>
+                <h3 className="mt-3 font-semibold text-app transition-colors group-hover:text-orange-700 dark:group-hover:text-orange-300">
+                  Laboratoires
+                </h3>
                 <p className="mt-1 text-sm text-app">
                   Mise sur le marché CI, conformité & reporting (extranet partenaires).
                 </p>
@@ -367,6 +417,8 @@ export default function HomePage() {
                     sizes="(min-width: 768px) 260px, 230px"
                     className="object-cover"
                     priority={false}
+                    loading="lazy"
+                    decoding="async"
                   />
                   <span className="absolute top-2 left-2 inline-flex items-center rounded-md bg-neutral-50 dark:bg-neutral-900/85 px-2 py-0.5 text-[11px] font-medium border dark:border-neutral-800">
                     Maillon central
@@ -391,9 +443,10 @@ export default function HomePage() {
                 href="/grossistes"
                 aria-label="Profil Grossistes / Pharmacies"
                 className="group block h-full rounded-2xl border border-app bg-card p-6 hover-card"
+                prefetch={false}
               >
-                <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-orange-50/20 to-transparent z-[1] pointer-events-none" />
+                <div className="relative aspect-video w-full rounded-xl overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-t from-orange-50/20 to-transparent z-1 pointer-events-none" />
                   <Image
                     src="/roles/pharmacie.webp"
                     alt="Grossistes / Pharmacies — disponibilité et service"
@@ -401,9 +454,13 @@ export default function HomePage() {
                     height={600}
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
-                <h3 className="mt-3 font-semibold text-app transition-colors group-hover:text-orange-700 dark:group-hover:text-orange-300">Grossistes / Pharmacies</h3>
+                <h3 className="mt-3 font-semibold text-app transition-colors group-hover:text-orange-700 dark:group-hover:text-orange-300">
+                  Grossistes / Pharmacies
+                </h3>
                 <p className="mt-1 text-sm text-app">
                   Disponibilité & délais maîtrisés (notifications SMS/Email, documents fournis).
                 </p>
@@ -412,7 +469,8 @@ export default function HomePage() {
           </div>
 
           <p className="mt-6 text-center text-xs text-app">
-            Flux : <span className="font-medium">Laboratoire</span> → <span className="font-medium">Entrepôt Dispharma</span> →{" "}
+            Flux : <span className="font-medium">Laboratoire</span> →{" "}
+            <span className="font-medium">Entrepôt Dispharma</span> →{" "}
             <span className="font-medium">Grossiste / Pharmacie</span>
           </p>
         </div>
@@ -431,7 +489,7 @@ export default function HomePage() {
       </section>
 
       {/* CHIFFRES CLES */}
-      <section id="chiffres" className="section-border bg-neutral-50 dark:bg-app">
+      <section id="chiffres" className="section-border bg-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-14">
           <AnimatedInView>
             <SectionHeader
@@ -468,10 +526,10 @@ export default function HomePage() {
               subtitle="Réservé aux laboratoires partenaires : suivez documents (AIRP, DGI), ventes et alertes en temps réel."
             />
             <div className="mt-6 flex gap-3">
-              <Link href="/extranet">
+              <Link href="/extranet" prefetch={false}>
                 <Button className="bg-orange-600 hover:bg-orange-700 text-white">Demander un accès</Button>
               </Link>
-              <Link href="/extranet">
+              <Link href="/extranet" prefetch={false}>
                 <Button variant="outline">En savoir plus</Button>
               </Link>
             </div>
@@ -486,24 +544,26 @@ export default function HomePage() {
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="w-full h-80 object-cover object-[70%_28%] md:object-[70%_32%]"
               priority={false}
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
       </section>
 
       {/* ACTUALITES */}
-      <section id="actus" className="section-border bg-neutral-50 dark:bg-app">
+      <section id="actus" className="section-border bg-app">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-14">
           <AnimatedInView>
             <div className="flex items-end justify-between">
               <div>
-                <SectionHeader
-                  title="Actualités / Communiqués"
-                  subtitle="Restez informés de nos annonces clés."
-                />
+                <SectionHeader title="Actualités / Communiqués" subtitle="Restez informés de nos annonces clés." />
               </div>
-              <Link href="/actualites">
-                <Button variant="ghost" className="group px-0 text-orange-600 dark:text-orange-300 hover:text-orange-700 dark:hover:text-orange-200">
+              <Link href="/actualites" prefetch={false}>
+                <Button
+                  variant="ghost"
+                  className="group px-0 text-orange-600 dark:text-orange-300 hover:text-orange-700 dark:hover:text-orange-200"
+                >
                   Voir tout <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
                 </Button>
               </Link>
@@ -517,10 +577,16 @@ export default function HomePage() {
                   href="/actualites"
                   className="group block h-full rounded-2xl border border-app bg-card p-6 hover-card relative"
                   aria-label={`Lire l’actualité ${i}`}
+                  prefetch={false}
                 >
-                  <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-6 h-12 bg-gradient-to-b from-orange-50/10 to-transparent dark:hidden" />
-                  <div className="aspect-[16/9] w-full rounded-lg overflow-hidden bg-neutral-100 dark:bg-card" />
-                  <h3 className="mt-3 font-semibold text-app transition-colors group-hover:text-orange-700 dark:group-hover:text-orange-300">Titre d’actualité {i}</h3>
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 -top-6 h-12 bg-gradient-to-b from-orange-50/10 to-transparent dark:hidden"
+                  />
+                  <div className="aspect-video w-full rounded-lg overflow-hidden bg-neutral-100 dark:bg-card" />
+                  <h3 className="mt-3 font-semibold text-app transition-colors group-hover:text-orange-700 dark:group-hover:text-orange-300">
+                    Titre d’actualité {i}
+                  </h3>
                   <p className="mt-1 text-sm text-app line-clamp-3">
                     Court résumé. Tu brancheras plus tard sur ton CMS ou tes fichiers markdown.
                   </p>
@@ -568,9 +634,7 @@ export default function HomePage() {
                 <strong>Horaires :</strong>{" "}
                 <span className="inline-flex items-center gap-2">
                   <span>Lun–Ven</span>
-                  <span className="rounded-md bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 text-[12px]">
-                    08h00 – 17h00
-                  </span>
+                  <span className="rounded-md bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 text-[12px]">08h00 – 17h00</span>
                 </span>
               </div>
             </div>
@@ -608,6 +672,8 @@ export default function HomePage() {
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 priority={false}
+                loading="lazy"
+                decoding="async"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-orange-50/30 to-transparent" />
             </a>
